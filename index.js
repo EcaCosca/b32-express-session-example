@@ -28,7 +28,9 @@ app.get('/login', (req, res) => {
 })
 
 app.get('/secret', (req, res)=>{
-    return req.session.user ? res.send(`Welcome into the secret area`) : res.send("you are not in my list, you are not cool, bounce")
+
+    req.session.viewCount += 1
+    return req.session.user ? res.send(`Welcome into the secret area ${req.session.user.name} You have been here ${req.session.viewCount}!`) : res.send("you are not in my list, you are not cool, bounce")
 })
 
 app.get('/logout', (req, res)=>{
@@ -39,3 +41,5 @@ app.get('/logout', (req, res)=>{
 })
 
 app.listen(port, ()=>{console.log(`http://localhost:${port}/`)})
+
+// https://www.npmjs.com/package/express-session
